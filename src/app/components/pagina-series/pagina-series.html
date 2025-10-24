@@ -1,0 +1,29 @@
+<div class="pagina-series">
+  <div class="container">
+    <h1 class="titulo-pagina">Séries Populares</h1>
+
+    <div *ngIf="carregando" class="carregando">Carregando séries...</div>
+
+    <div class="grade-series">
+      <div *ngFor="let serie of series" class="cartao-serie" (click)="irParaDetalhes('serie', serie.id)">
+        <img 
+          [src]="obterUrlImagem(serie.poster_path)" 
+          [alt]="serie.name"
+          class="capa">
+        <div class="nome">{{ serie.name }}</div>
+      </div>
+      
+      <div *ngIf="!carregando && paginaAtual < totalPaginas" class="cartao-carregar-mais">
+        <button 
+          class="btn-carregar-mais" 
+          (click)="carregarMais()"
+          [disabled]="carregandoMais">
+          <span class="icone">⟳</span>
+          <span class="texto">
+            {{ carregandoMais ? 'Carregando...' : 'Carregar Mais' }}
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

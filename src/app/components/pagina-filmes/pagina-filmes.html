@@ -1,0 +1,29 @@
+<div class="pagina-filmes">
+  <div class="container">
+    <h1 class="titulo-pagina">Filmes Populares</h1>
+
+    <div *ngIf="carregando" class="carregando">Carregando filmes...</div>
+
+    <div class="grade-filmes">
+      <div *ngFor="let filme of filmes" class="cartao-filme" (click)="irParaDetalhes('filme', filme.id)">
+        <img 
+          [src]="obterUrlImagem(filme.poster_path)" 
+          [alt]="filme.title"
+          class="capa">
+        <div class="nome">{{ filme.title }}</div>
+      </div>
+      
+      <div *ngIf="!carregando && paginaAtual < totalPaginas" class="cartao-carregar-mais">
+        <button 
+          class="btn-carregar-mais" 
+          (click)="carregarMais()"
+          [disabled]="carregandoMais">
+          <span class="icone">⟳</span>
+          <span class="texto">
+            {{ carregandoMais ? 'Carregando...' : 'Carregar Mais' }}
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

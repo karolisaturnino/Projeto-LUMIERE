@@ -1,0 +1,79 @@
+<div class="pagina-detalhes">
+  <div *ngIf="carregando" class="carregando">
+    Carregando...
+  </div>
+
+  <div *ngIf="!carregando && item" class="detalhes-container">
+    <button class="btn-voltar" (click)="voltar()">← Voltar</button>
+    
+    <div class="detalhes-conteudo">
+      <div class="poster-container">
+        <img 
+          [src]="obterUrlImagem(item.poster_path)" 
+          [alt]="eFilme(item) ? item.title : item.name"
+          class="poster">
+      </div>
+
+      <div class="informacoes">
+        <h1 class="titulo">{{ eFilme(item) ? item.title : item.name }}</h1>
+        
+        <div class="nota-container">
+          <div class="nota">
+            <span class="nota-valor">{{ item.vote_average | number:'1.1-1' }}</span>
+            <span class="nota-max">/10</span>
+          </div>
+          <span class="votos">({{ item.vote_count }} votos)</span>
+        </div>
+
+        <div class="metadados">
+          <div class="metadado" *ngIf="eFilme(item) && item.release_date">
+            <strong>Data de Lançamento:</strong>
+            <span>{{ item.release_date | date:'dd/MM/yyyy' }}</span>
+          </div>
+          <div class="metadado" *ngIf="eSerie(item) && item.first_air_date">
+            <strong>Primeira Exibição:</strong>
+            <span>{{ item.first_air_date | date:'dd/MM/yyyy' }}</span>
+          </div>
+          
+          <div class="metadado" *ngIf="eFilme(item) && item.runtime">
+            <strong>Duração:</strong>
+            <span>{{ item.runtime }} minutos</span>
+          </div>
+          
+          <div class="metadado" *ngIf="eSerie(item) && item.number_of_seasons">
+            <strong>Temporadas:</strong>
+            <span>{{ item.number_of_seasons }}</span>
+          </div>
+          
+          <div class="metadado" *ngIf="eSerie(item) && item.number_of_episodes">
+            <strong>Episódios:</strong>
+            <span>{{ item.number_of_episodes }}</span>
+          </div>
+        </div>
+
+        <div class="generos" *ngIf="item.genres && item.genres.length > 0">
+          <strong>Gêneros:</strong>
+          <div class="generos-lista">
+            <span *ngFor="let genero of item.genres" class="genero">
+              {{ genero.name }}
+            </span>
+          </div>
+        </div>
+
+        <div class="sinopse" *ngIf="item.overview">
+          <h3>Sinopse</h3>
+          <p>{{ item.overview }}</p>
+        </div>
+
+        <div class="produtoras" *ngIf="item.production_companies && item.production_companies.length > 0">
+          <strong>Produtoras:</strong>
+          <div class="produtoras-lista">
+            <span *ngFor="let produtora of item.production_companies" class="produtora">
+              {{ produtora.name }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

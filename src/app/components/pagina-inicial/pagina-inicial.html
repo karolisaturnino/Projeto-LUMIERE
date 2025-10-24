@@ -1,0 +1,133 @@
+<div class="pagina-inicial">
+  <div *ngIf="destaqueAtual" class="destaque">
+    <div class="destaque-imagem">
+      <img 
+        [src]="destaqueAtual.imagem" 
+        [alt]="destaqueAtual.titulo"
+        class="imagem-destaque">
+      <div class="destaque-overlay"></div>
+    </div>
+    
+    <div class="destaque-conteudo">
+      <div class="container">
+        <div class="destaque-tipo">{{ destaqueAtual.tipo === 'filme' ? '🎬 Filme' : '📺 Série' }} em Destaque</div>
+        <h1 class="destaque-titulo">{{ destaqueAtual.titulo }}</h1>
+        <button class="btn-ver-detalhes" (click)="verDetalhesDestaque()">
+          Ver Detalhes
+        </button>
+      </div>
+    </div>
+
+    <div class="destaque-controles">
+      <button class="btn-destaque btn-anterior" (click)="anteriorDestaque()">‹</button>
+      <button class="btn-destaque btn-proximo" (click)="proximoDestaque()">›</button>
+      
+      <div class="indicadores">
+        <button 
+          *ngFor="let destaque of destaques; let i = index"
+          class="indicador" 
+          [class.ativo]="i === indiceDestaque"
+          (click)="irParaDestaque(i)">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <section class="secao">
+      <div class="cabecalho-secao">
+        <h2>Filmes em Alta</h2>
+        <a routerLink="/filmes" class="ver-tudo">Ver Todos</a>
+      </div>
+      
+      <div class="carrossel-container">
+        <div class="carrossel-wrapper">
+          <button 
+            class="btn-navegacao btn-esquerda" 
+            (click)="navegarCarrossel('esquerda', 'filmes')"
+            aria-label="Rolar para esquerda">
+            ‹
+          </button>
+          
+          <div class="cartoes" #carrosselFilmes>
+            <div *ngFor="let filme of filmesEmAlta" class="cartao" (click)="irParaDetalhes('filme', filme.id)">
+              <img 
+                [src]="obterUrlImagem(filme.poster_path)" 
+                [alt]="filme.title"
+                class="capa">
+              <div class="nome">{{ filme.title }}</div>
+            </div>
+            
+            <div class="cartao-carregar-mais">
+              <button 
+                class="btn-carregar-mais" 
+                (click)="carregarMaisFilmes()"
+                [disabled]="carregandoMais">
+                <span class="icone">⟳</span>
+                <span class="texto">
+                  {{ carregandoMais ? 'Carregando...' : 'Carregar Mais' }}
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <button 
+            class="btn-navegacao btn-direita" 
+            (click)="navegarCarrossel('direita', 'filmes')"
+            aria-label="Rolar para direita">
+            ›
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao">
+      <div class="cabecalho-secao">
+        <h2>Séries em Alta</h2>
+        <a routerLink="/series" class="ver-tudo">Ver Todos</a>
+      </div>
+      
+      <div class="carrossel-container">
+        <div class="carrossel-wrapper">
+          <button 
+            class="btn-navegacao btn-esquerda" 
+            (click)="navegarCarrossel('esquerda', 'series')"
+            aria-label="Rolar para esquerda">
+            ‹
+          </button>
+          
+          <div class="cartoes" #carrosselSeries>
+            <div *ngFor="let serie of seriesEmAlta" class="cartao" (click)="irParaDetalhes('serie', serie.id)">
+              <img 
+                [src]="obterUrlImagem(serie.poster_path)" 
+                [alt]="serie.name"
+                class="capa">
+              <div class="nome">{{ serie.name }}</div>
+            </div>
+            
+            <div class="cartao-carregar-mais">
+              <button 
+                class="btn-carregar-mais" 
+                (click)="carregarMaisSeries()"
+                [disabled]="carregandoMais">
+                <span class="icone">⟳</span>
+                <span class="texto">
+                  {{ carregandoMais ? 'Carregando...' : 'Carregar Mais' }}
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <button 
+            class="btn-navegacao btn-direita" 
+            (click)="navegarCarrossel('direita', 'series')"
+            aria-label="Rolar para direita">
+            ›
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div *ngIf="carregando" class="carregando">Carregando...</div>
+  </div>
+</div>

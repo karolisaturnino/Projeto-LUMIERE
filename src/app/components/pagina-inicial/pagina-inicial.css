@@ -1,0 +1,389 @@
+.pagina-inicial {
+  padding-top: 0;
+  background: #000;
+  font-family: Arial, sans-serif;
+}
+
+.destaque {
+  position: relative;
+  height: 70vh;
+  min-height: 500px;
+  margin-bottom: 3rem;
+  overflow: hidden;
+}
+
+.destaque-imagem {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.imagem-destaque {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.destaque:hover .imagem-destaque {
+  transform: scale(1.05);
+}
+
+.destaque-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
+
+.destaque-conteudo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 3rem 0;
+}
+
+.destaque-tipo {
+  font-size: 1.2rem;
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  font-family: Arial, sans-serif;
+}
+
+.destaque-titulo {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: white;
+  margin: 0 0 1.5rem 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  font-family: Arial, sans-serif;
+}
+
+.btn-ver-detalhes {
+  background: #ffd700;
+  color: #000;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: Arial, sans-serif;
+}
+
+.btn-ver-detalhes:hover {
+  background: #ffed4a;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+.destaque-controles {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-destaque {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+.btn-destaque:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.indicadores {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.indicador {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicador.ativo {
+  background: white;
+}
+
+.indicador:hover {
+  transform: scale(1.2);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.secao {
+  margin-bottom: 4rem;
+}
+
+.cabecalho-secao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.cabecalho-secao h2 {
+  font-size: 1.5rem;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.ver-tudo {
+  background: #ffd700;
+  color: #000;
+  text-decoration: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-family: Arial, sans-serif;
+}
+
+.ver-tudo:hover {
+  background: #ffed4a;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+.carrossel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.carrossel-wrapper {
+  overflow: hidden;
+  flex: 1;
+  position: relative;
+}
+
+.cartoes {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.cartoes::-webkit-scrollbar {
+  display: none;
+}
+
+.cartao {
+  flex: 0 0 auto;
+  width: 200px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.cartao:hover {
+  transform: translateY(-5px);
+}
+
+.capa {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.nome {
+  font-size: 0.9rem;
+  line-height: 1.2;
+  height: 2.4rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: white;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 0.5rem;
+  border-radius: 0 0 8px 8px;
+  margin: 0;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.btn-navegacao {
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: Arial, sans-serif;
+}
+
+.btn-navegacao:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.btn-navegacao:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.btn-esquerda {
+  left: 10px;
+}
+
+.btn-direita {
+  right: 10px;
+}
+
+.cartao-carregar-mais {
+  flex: 0 0 auto;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  border: 2px dashed #555;
+}
+
+.btn-carregar-mais {
+  background: transparent;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 0.9rem;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+}
+
+.btn-carregar-mais:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-carregar-mais:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-carregar-mais .texto {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.btn-carregar-mais .icone {
+  font-size: 1.5rem;
+}
+
+.carregando {
+  text-align: center;
+  padding: 2rem;
+  color: #ccc;
+  font-family: Arial, sans-serif;
+}
+
+@media (max-width: 768px) {
+  .destaque {
+    height: 50vh;
+    min-height: 400px;
+  }
+  
+  .destaque-titulo {
+    font-size: 2rem;
+  }
+  
+  .destaque-tipo {
+    font-size: 1rem;
+  }
+  
+  .btn-ver-detalhes {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .destaque-controles {
+    bottom: 1rem;
+    right: 1rem;
+  }
+  
+  .btn-destaque {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .btn-navegacao {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .cartao {
+    width: 160px;
+  }
+  
+  .capa {
+    height: 240px;
+  }
+  
+  .cartao-carregar-mais {
+    width: 160px;
+  }
+}

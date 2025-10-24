@@ -1,0 +1,267 @@
+.pagina-detalhes {
+  padding: 100px 0 2rem 0;
+  min-height: 100vh;
+  background: #000;
+  font-family: Arial, sans-serif;
+}
+
+.btn-voltar {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #555;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-family: Arial, sans-serif;
+}
+
+.btn-voltar:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-5px);
+}
+
+.detalhes-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.detalhes-conteudo {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.poster-container {
+  position: sticky;
+  top: 120px;
+}
+
+.poster {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.informacoes {
+  color: white;
+}
+
+.titulo {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  font-family: Arial, sans-serif;
+}
+
+.nota-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.nota {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.nota-valor {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffd700;
+  font-family: Arial, sans-serif;
+}
+
+.nota-max {
+  color: #888;
+  font-size: 1rem;
+  font-family: Arial, sans-serif;
+}
+
+.votos {
+  color: #888;
+  font-size: 0.9rem;
+  font-family: Arial, sans-serif;
+}
+
+.metadados {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.metadado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #333;
+}
+
+.metadado:last-child {
+  border-bottom: none;
+}
+
+.metadado strong {
+  color: #ccc;
+  font-weight: 600;
+  font-family: Arial, sans-serif;
+}
+
+.metadado span {
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.generos {
+  margin-bottom: 2rem;
+}
+
+.generos strong {
+  display: block;
+  color: #ccc;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  font-family: Arial, sans-serif;
+}
+
+.generos-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.genero {
+  background: rgba(255, 215, 0, 0.2);
+  color: #ffd700;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  font-family: Arial, sans-serif;
+}
+
+.sinopse {
+  margin-bottom: 2rem;
+}
+
+.sinopse h3 {
+  color: #ccc;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-family: Arial, sans-serif;
+}
+
+.sinopse p {
+  line-height: 1.6;
+  color: #e0e0e0;
+  font-size: 1rem;
+  font-family: Arial, sans-serif;
+}
+
+.produtoras {
+  margin-bottom: 2rem;
+}
+
+.produtoras strong {
+  display: block;
+  color: #ccc;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  font-family: Arial, sans-serif;
+}
+
+.produtoras-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.produtora {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: Arial, sans-serif;
+}
+
+.carregando {
+  text-align: center;
+  padding: 4rem;
+  color: #ccc;
+  font-size: 1.2rem;
+  font-family: Arial, sans-serif;
+}
+
+@media (max-width: 968px) {
+  .detalhes-conteudo {
+    grid-template-columns: 250px 1fr;
+    gap: 2rem;
+  }
+  
+  .titulo {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pagina-detalhes {
+    padding: 90px 0 1rem 0;
+  }
+  
+  .detalhes-conteudo {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .poster-container {
+    position: static;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .titulo {
+    font-size: 1.75rem;
+    text-align: center;
+  }
+  
+  .nota-container {
+    justify-content: center;
+  }
+  
+  .metadado {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  
+  .generos-lista,
+  .produtoras-lista {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .poster-container {
+    max-width: 250px;
+  }
+  
+  .titulo {
+    font-size: 1.5rem;
+  }
+  
+  .metadados {
+    padding: 1rem;
+  }
+}

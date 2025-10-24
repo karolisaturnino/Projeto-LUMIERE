@@ -1,0 +1,41 @@
+<div class="pagina-busca">
+  <div class="container">
+    <div *ngIf="termo" class="cabecalho-busca">
+      <h1 class="titulo-busca">Resultados para "{{ termo }}"</h1>
+    </div>
+
+    <div *ngIf="carregando" class="carregando">Buscando...</div>
+
+    <div *ngIf="semResultados && !carregando" class="sem-resultados">
+      <p>Nenhum resultado encontrado para "{{ termo }}"</p>
+    </div>
+
+    <div *ngIf="!carregando && !semResultados">
+      <section *ngIf="filmes.length > 0" class="secao-resultados">
+        <h2 class="titulo-secao">Filmes</h2>
+        <div class="grade-resultados">
+          <div *ngFor="let filme of filmes" class="cartao-resultado" (click)="irParaDetalhes('filme', filme.id)">
+            <img 
+              [src]="obterUrlImagem(filme.poster_path)" 
+              [alt]="filme.title"
+              class="capa">
+            <div class="nome">{{ filme.title }}</div>
+          </div>
+        </div>
+      </section>
+
+      <section *ngIf="series.length > 0" class="secao-resultados">
+        <h2 class="titulo-secao">Séries</h2>
+        <div class="grade-resultados">
+          <div *ngFor="let serie of series" class="cartao-resultado" (click)="irParaDetalhes('serie', serie.id)">
+            <img 
+              [src]="obterUrlImagem(serie.poster_path)" 
+              [alt]="serie.name"
+              class="capa">
+            <div class="nome">{{ serie.name }}</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

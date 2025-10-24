@@ -1,0 +1,27 @@
+<nav class="navegacao">
+  <div class="container">
+    <a routerLink="/" class="logo">Lumiere</a>
+    
+    <div class="links">
+      <a routerLink="/" class="link">Início</a>
+      <a routerLink="/filmes" class="link">Filmes</a>
+      <a routerLink="/series" class="link">Séries</a>
+      
+      <div class="busca-container">
+        <button class="btn-busca" (click)="toggleBusca()">
+          🔍
+        </button>
+        
+        <div class="campo-busca" [class.ativo]="mostrarBusca">
+          <input 
+            type="text" 
+            [(ngModel)]="termoBusca"
+            placeholder="Buscar filmes e séries..."
+            (keyup.enter)="buscar()"
+            class="input-busca">
+          <button class="btn-fechar" (click)="fecharBusca()">✕</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

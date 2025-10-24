@@ -1,0 +1,155 @@
+.pagina-filmes {
+  padding: 100px 0 2rem 0;
+  min-height: 100vh;
+  background: #000;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  background-color: #000;
+}
+
+.titulo-pagina {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.grade-filmes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.cartao-filme {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.cartao-filme:hover {
+  transform: translateY(-5px);
+}
+
+.capa {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.nome {
+  font-size: 0.9rem;
+  line-height: 1.2;
+  height: 2.4rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  box-orient: vertical;
+  color: white;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 0.5rem;
+  border-radius: 0 0 8px 8px;
+  margin: 0;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.cartao-carregar-mais {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  border: 2px dashed #555;
+  min-height: 350px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cartao-carregar-mais:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.btn-carregar-mais {
+  background: transparent;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 0.9rem;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+}
+
+.btn-carregar-mais:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-carregar-mais:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-carregar-mais .texto {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.btn-carregar-mais .icone {
+  font-size: 1.5rem;
+}
+
+.carregando {
+  text-align: center;
+  padding: 2rem;
+  color: #ccc;
+  font-family: Arial, sans-serif;
+}
+
+@media (max-width: 768px) {
+  .pagina-filmes {
+    padding: 90px 0 1rem 0;
+  }
+  
+  .cartao-carregar-mais {
+    min-height: 300px;
+  }
+  
+  .grade-filmes {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .capa {
+    height: 225px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grade-filmes {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
+  
+  .capa {
+    height: 195px;
+  }
+}
