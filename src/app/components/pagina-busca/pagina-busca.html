@@ -1,41 +1,94 @@
 <div class="pagina-busca">
   <div class="container">
-    <div *ngIf="termo" class="cabecalho-busca">
-      <h1 class="titulo-busca">Resultados para "{{ termo }}"</h1>
-    </div>
-
-    <div *ngIf="carregando" class="carregando">Buscando...</div>
-
-    <div *ngIf="semResultados && !carregando" class="sem-resultados">
-      <p>Nenhum resultado encontrado para "{{ termo }}"</p>
-    </div>
-
-    <div *ngIf="!carregando && !semResultados">
-      <section *ngIf="filmes.length > 0" class="secao-resultados">
-        <h2 class="titulo-secao">Filmes</h2>
-        <div class="grade-resultados">
-          <div *ngFor="let filme of filmes" class="cartao-resultado" (click)="irParaDetalhes('filme', filme.id)">
-            <img 
-              [src]="obterUrlImagem(filme.poster_path)" 
-              [alt]="filme.title"
-              class="capa">
-            <div class="nome">{{ filme.title }}</div>
-          </div>
+    @if (termo) {
+      <div class="cabecalho-busca">
+        <h1 class="titulo-busca">Resultados para "{{ termo }}"</h1>
+        
+        <div class="abas-navegacao">
+          <button 
+            class="aba-item" 
+            [class.ativo]="abaAtiva === 'filmes'"
+            (click)="mudarAba('filmes')">
+            Filmes
+          </button>
+          <button 
+            class="aba-item" 
+            [class.ativo]="abaAtiva === 'series'"
+            (click)="mudarAba('series')">
+            Séries
+          </button>
         </div>
-      </section>
+      </div>
+    }
 
-      <section *ngIf="series.length > 0" class="secao-resultados">
-        <h2 class="titulo-secao">Séries</h2>
-        <div class="grade-resultados">
-          <div *ngFor="let serie of series" class="cartao-resultado" (click)="irParaDetalhes('serie', serie.id)">
-            <img 
-              [src]="obterUrlImagem(serie.poster_path)" 
-              [alt]="serie.name"
-              class="capa">
-            <div class="nome">{{ serie.name }}</div>
+    @if (carregando && paginaAtual === 1) {
+      <div class="carregando">Buscando...</div>
+    }
+
+    @if (semResultados && !carregando) {
+      <div class="sem-resultados">
+        <p>Nenhum resultado encontrado para "{{ termo }}"</p>
+      </div>
+    }
+
+    @if (!carregando && !semResultados) {
+      @if (abaAtiva === 'filmes' && filmes.length > 0) {
+        <section class="secao-resultados">
+          <h2 class="titulo-secao">Filmes</h2>
+          <div class="grade-resultados">
+            @for (filme of filmes; track filme.id) {
+              <div class="cartao-resultado" (click)="irParaDetalhes('filme', filme.id)">
+                <img 
+                  [src]="obterUrlImagem(filme.poster_path)" 
+                  [alt]="filme.title"
+                  class="capa">
+                <div class="info">
+                  <div class="nome">{{ filme.title }}</div>
+                  <div class="ano">{{ filme.release_date ? (filme.release_date.substring(0, 4)) : 'N/A' }}</div>
+                </div>
+              </div>
+            }
           </div>
+          @if (carregandoMais) {
+            <div class="carregando-mais">Carregando mais filmes...</div>
+          }
+        </section>
+      }
+
+      @if (abaAtiva === 'series' && series.length > 0) {
+        <section class="secao-resultados">
+          <h2 class="titulo-secao">Séries</h2>
+          <div class="grade-resultados">
+            @for (serie of series; track serie.id) {
+              <div class="cartao-resultado" (click)="irParaDetalhes('serie', serie.id)">
+                <img 
+                  [src]="obterUrlImagem(serie.poster_path)" 
+                  [alt]="serie.name"
+                  class="capa">
+                <div class="info">
+                  <div class="nome">{{ serie.name }}</div>
+                  <div class="ano">{{ serie.first_air_date ? (serie.first_air_date.substring(0, 4)) : 'N/A' }}</div>
+                </div>
+              </div>
+            }
+          </div>
+          @if (carregandoMais) {
+            <div class="carregando-mais">Carregando mais séries...</div>
+          }
+        </section>
+      }
+
+      @if (abaAtiva === 'filmes' && filmes.length === 0 && !carregando) {
+        <div class="sem-resultados">
+          <p>Nenhum filme encontrado para "{{ termo }}"</p>
         </div>
-      </section>
-    </div>
+      }
+
+      @if (abaAtiva === 'series' && series.length === 0 && !carregando) {
+        <div class="sem-resultados">
+          <p>Nenhuma série encontrada para "{{ termo }}"</p>
+        </div>
+      }
+    }
   </div>
 </div>

@@ -1,8 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { TmdbService } from '../../services/tmdb';
 import { Serie } from '../../models/serie';
+
+interface Destaque {
+  tipo: 'serie';
+  titulo: string;
+  imagem: string;
+  id: number;
+}
 
 @Component({
   selector: 'app-pagina-series',
@@ -11,13 +18,16 @@ import { Serie } from '../../models/serie';
   templateUrl: './pagina-series.html',
   styleUrls: ['./pagina-series.css']
 })
-export class PaginaSeriesComponent implements OnInit {
-  seriesDestaque: Serie[] = [];
+export class PaginaSeriesComponent implements OnInit, OnDestroy {
+  destaques: Destaque[] = [];
+  destaqueAtual: Destaque | null = null;
+  indiceDestaque = 0;
   series: Serie[] = [];
   carregando = true;
   carregandoMais = false;
   paginaAtual = 1;
   totalPaginas = 1;
+  private intervalo: any;
 
   constructor(
     private tmdbService: TmdbService,
@@ -29,11 +39,17 @@ export class PaginaSeriesComponent implements OnInit {
     this.carregarSeries();
   }
 
+  ngOnDestroy(): void {
+    if (this.intervalo) {
+      clearInterval(this.intervalo);
+    }
+  }
+
   carregarSeries(): void {
     this.tmdbService.obterSeriesPopulares(this.paginaAtual).subscribe({
       next: (resposta) => {
         this.series = resposta.results;
-        this.seriesDestaque = resposta.results.slice(0, 2);
+        this.criarDestaques();
         this.totalPaginas = resposta.total_pages;
         this.carregando = false;
       },
@@ -42,6 +58,58 @@ export class PaginaSeriesComponent implements OnInit {
         this.carregando = false;
       }
     });
+  }
+
+  criarDestaques(): void {
+    if (this.series.length > 0) {
+      this.destaques = this.series.slice(0, 5).map(serie => ({
+        tipo: 'serie',
+        titulo: serie.name,
+        imagem: this.obterUrlImagemGrande(serie.backdrop_path),
+        id: serie.id
+      }));
+
+      this.destaqueAtual = this.destaques[0];
+      this.iniciarCarrossel();
+    }
+  }
+
+  iniciarCarrossel(): void {
+    if (this.intervalo) {
+      clearInterval(this.intervalo);
+    }
+
+    this.intervalo = setInterval(() => {
+      this.proximoDestaque();
+    }, 8000);
+  }
+
+  proximoDestaque(): void {
+    if (this.destaques.length > 0) {
+      this.indiceDestaque = (this.indiceDestaque + 1) % this.destaques.length;
+      this.destaqueAtual = this.destaques[this.indiceDestaque];
+    }
+  }
+
+  anteriorDestaque(): void {
+    if (this.destaques.length > 0) {
+      this.indiceDestaque = (this.indiceDestaque - 1 + this.destaques.length) % this.destaques.length;
+      this.destaqueAtual = this.destaques[this.indiceDestaque];
+    }
+  }
+
+  irParaDestaque(indice: number): void {
+    if (this.destaques.length > 0) {
+      this.indiceDestaque = indice;
+      this.destaqueAtual = this.destaques[this.indiceDestaque];
+      this.iniciarCarrossel();
+    }
+  }
+
+  verDetalhesDestaque(): void {
+    if (this.destaqueAtual) {
+      this.irParaDetalhes(this.destaqueAtual.tipo, this.destaqueAtual.id);
+    }
   }
 
   carregarMais(): void {

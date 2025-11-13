@@ -3,13 +3,13 @@
     <a routerLink="/" class="logo">Lumiere</a>
     
     <div class="links">
-      <a routerLink="/" class="link">Início</a>
-      <a routerLink="/filmes" class="link">Filmes</a>
-      <a routerLink="/series" class="link">Séries</a>
+      <a routerLink="/" class="link" [class.ativo]="isPaginaAtiva('/')">Início</a>
+      <a routerLink="/filmes" class="link" [class.ativo]="isPaginaAtiva('/filmes')">Filmes</a>
+      <a routerLink="/series" class="link" [class.ativo]="isPaginaAtiva('/series')">Séries</a>
       
       <div class="busca-container">
         <button class="btn-busca" (click)="toggleBusca()">
-          🔍
+          🔍︎
         </button>
         
         <div class="campo-busca" [class.ativo]="mostrarBusca">
@@ -19,6 +19,7 @@
             placeholder="Buscar filmes e séries..."
             (keyup.enter)="buscar()"
             class="input-busca">
+          <button class="btn-buscar" (click)="buscar()">Buscar</button>
           <button class="btn-fechar" (click)="fecharBusca()">✕</button>
         </div>
       </div>

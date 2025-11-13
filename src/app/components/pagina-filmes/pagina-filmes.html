@@ -1,29 +1,88 @@
 <div class="pagina-filmes">
-  <div class="container">
-    <h1 class="titulo-pagina">Filmes Populares</h1>
-
-    <div *ngIf="carregando" class="carregando">Carregando filmes...</div>
-
-    <div class="grade-filmes">
-      <div *ngFor="let filme of filmes" class="cartao-filme" (click)="irParaDetalhes('filme', filme.id)">
+  @if (destaqueAtual) {
+    <div class="destaque">
+      <div class="destaque-imagem">
         <img 
-          [src]="obterUrlImagem(filme.poster_path)" 
-          [alt]="filme.title"
-          class="capa">
-        <div class="nome">{{ filme.title }}</div>
+          [src]="destaqueAtual.imagem" 
+          [alt]="destaqueAtual.titulo"
+          class="imagem-destaque">
+        <div class="destaque-overlay"></div>
       </div>
       
-      <div *ngIf="!carregando && paginaAtual < totalPaginas" class="cartao-carregar-mais">
-        <button 
-          class="btn-carregar-mais" 
-          (click)="carregarMais()"
-          [disabled]="carregandoMais">
-          <span class="icone">⟳</span>
-          <span class="texto">
-            {{ carregandoMais ? 'Carregando...' : 'Carregar Mais' }}
-          </span>
-        </button>
+      <div class="destaque-conteudo">
+        <div class="container">
+          <div class="destaque-tipo">🎬 Filme em Destaque</div>
+          <h1 class="destaque-titulo">{{ destaqueAtual.titulo }}</h1>
+          <button class="btn-ver-detalhes" (click)="verDetalhesDestaque()">
+            Ver Detalhes
+          </button>
+        </div>
       </div>
+
+      <div class="destaque-controles">
+        <button class="btn-destaque btn-anterior" (click)="anteriorDestaque()">‹</button>
+        <button class="btn-destaque btn-proximo" (click)="proximoDestaque()">›</button>
+        
+        <div class="indicadores">
+          @for (destaque of destaques; track destaque; let i = $index) {
+            <button 
+              class="indicador" 
+              [class.ativo]="i === indiceDestaque"
+              (click)="irParaDestaque(i)">
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="container">
+    <div class="cabecalho-pagina">
+      <h1 class="titulo-pagina">🎬 Catálogo de Filmes</h1>
+      <p class="subtitulo-pagina">Descubra os melhores filmes para assistir</p>
+    </div>
+
+    @if (carregando) {
+      <div class="carregando">Carregando filmes...</div>
+    }
+
+    <div class="grade-filmes">
+      @for (filme of filmes; track filme.id) {
+        <div class="cartao-filme" (click)="irParaDetalhes('filme', filme.id)">
+          <img 
+            [src]="obterUrlImagem(filme.poster_path)" 
+            [alt]="filme.title"
+            class="capa">
+          <div class="info">
+            <h3 class="nome">{{ filme.title }}</h3>
+            <div class="detalhes">
+              <span class="ano">{{ filme.release_date ? (filme.release_date.substring(0, 4)) : 'N/A' }}</span>
+              <span class="avaliacao">
+                <span class="estrela">⭐</span>
+                {{ filme.vote_average ? (filme.vote_average.toFixed(1)) : 'N/A' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      }
+      
+      @if (!carregando && paginaAtual < totalPaginas) {
+        <div class="cartao-carregar-mais">
+          <button 
+            class="btn-carregar-mais" 
+            (click)="carregarMais()"
+            [disabled]="carregandoMais">
+            <span class="icone">⟳</span>
+            <span class="texto">
+              @if (carregandoMais) {
+                Carregando...
+              } @else {
+                Carregar Mais
+              }
+            </span>
+          </button>
+        </div>
+      }
     </div>
   </div>
 </div>

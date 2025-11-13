@@ -17,3 +17,8 @@ app-root {
   background-color: #000;
   min-height: 100vh;
 }
+
+.conteudo-principal {
+  padding-top: 70px;
+  min-height: calc(100vh - 70px);
+}

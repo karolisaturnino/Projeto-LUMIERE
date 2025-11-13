@@ -1,37 +1,40 @@
 <div class="pagina-inicial">
-  <div *ngIf="destaqueAtual" class="destaque">
-    <div class="destaque-imagem">
-      <img 
-        [src]="destaqueAtual.imagem" 
-        [alt]="destaqueAtual.titulo"
-        class="imagem-destaque">
-      <div class="destaque-overlay"></div>
-    </div>
-    
-    <div class="destaque-conteudo">
-      <div class="container">
-        <div class="destaque-tipo">{{ destaqueAtual.tipo === 'filme' ? '🎬 Filme' : '📺 Série' }} em Destaque</div>
-        <h1 class="destaque-titulo">{{ destaqueAtual.titulo }}</h1>
-        <button class="btn-ver-detalhes" (click)="verDetalhesDestaque()">
-          Ver Detalhes
-        </button>
+  @if (destaqueAtual) {
+    <div class="destaque">
+      <div class="destaque-imagem">
+        <img 
+          [src]="destaqueAtual.imagem" 
+          [alt]="destaqueAtual.titulo"
+          class="imagem-destaque">
+        <div class="destaque-overlay"></div>
       </div>
-    </div>
-
-    <div class="destaque-controles">
-      <button class="btn-destaque btn-anterior" (click)="anteriorDestaque()">‹</button>
-      <button class="btn-destaque btn-proximo" (click)="proximoDestaque()">›</button>
       
-      <div class="indicadores">
-        <button 
-          *ngFor="let destaque of destaques; let i = index"
-          class="indicador" 
-          [class.ativo]="i === indiceDestaque"
-          (click)="irParaDestaque(i)">
-        </button>
+      <div class="destaque-conteudo">
+        <div class="container">
+          <div class="destaque-tipo">{{ destaqueAtual.tipo === 'filme' ? '🎬 Filme' : '📺 Série' }} em Destaque</div>
+          <h1 class="destaque-titulo">{{ destaqueAtual.titulo }}</h1>
+          <button class="btn-ver-detalhes" (click)="verDetalhesDestaque()">
+            Ver Detalhes
+          </button>
+        </div>
+      </div>
+
+      <div class="destaque-controles">
+        <button class="btn-destaque btn-anterior" (click)="anteriorDestaque()">‹</button>
+        <button class="btn-destaque btn-proximo" (click)="proximoDestaque()">›</button>
+        
+        <div class="indicadores">
+          @for (destaque of destaques; track destaque; let i = $index) {
+            <button 
+              class="indicador" 
+              [class.ativo]="i === indiceDestaque"
+              (click)="irParaDestaque(i)">
+            </button>
+          }
+        </div>
       </div>
     </div>
-  </div>
+  }
 
   <div class="container">
     <section class="secao">
@@ -50,13 +53,15 @@
           </button>
           
           <div class="cartoes" #carrosselFilmes>
-            <div *ngFor="let filme of filmesEmAlta" class="cartao" (click)="irParaDetalhes('filme', filme.id)">
-              <img 
-                [src]="obterUrlImagem(filme.poster_path)" 
-                [alt]="filme.title"
-                class="capa">
-              <div class="nome">{{ filme.title }}</div>
-            </div>
+            @for (filme of filmesEmAlta; track filme.id) {
+              <div class="cartao" (click)="irParaDetalhes('filme', filme.id)">
+                <img 
+                  [src]="obterUrlImagem(filme.poster_path)" 
+                  [alt]="filme.title"
+                  class="capa">
+                <div class="nome">{{ filme.title }}</div>
+              </div>
+            }
             
             <div class="cartao-carregar-mais">
               <button 
@@ -65,7 +70,11 @@
                 [disabled]="carregandoMais">
                 <span class="icone">⟳</span>
                 <span class="texto">
-                  {{ carregandoMais ? 'Carregando...' : 'Carregar Mais' }}
+                  @if (carregandoMais) {
+                    Carregando...
+                  } @else {
+                    Carregar Mais
+                  }
                 </span>
               </button>
             </div>
@@ -97,13 +106,15 @@
           </button>
           
           <div class="cartoes" #carrosselSeries>
-            <div *ngFor="let serie of seriesEmAlta" class="cartao" (click)="irParaDetalhes('serie', serie.id)">
-              <img 
-                [src]="obterUrlImagem(serie.poster_path)" 
-                [alt]="serie.name"
-                class="capa">
-              <div class="nome">{{ serie.name }}</div>
-            </div>
+            @for (serie of seriesEmAlta; track serie.id) {
+              <div class="cartao" (click)="irParaDetalhes('serie', serie.id)">
+                <img 
+                  [src]="obterUrlImagem(serie.poster_path)" 
+                  [alt]="serie.name"
+                  class="capa">
+                <div class="nome">{{ serie.name }}</div>
+              </div>
+            }
             
             <div class="cartao-carregar-mais">
               <button 
@@ -112,7 +123,11 @@
                 [disabled]="carregandoMais">
                 <span class="icone">⟳</span>
                 <span class="texto">
-                  {{ carregandoMais ? 'Carregando...' : 'Carregar Mais' }}
+                  @if (carregandoMais) {
+                    Carregando...
+                  } @else {
+                    Carregar Mais
+                  }
                 </span>
               </button>
             </div>
@@ -128,6 +143,8 @@
       </div>
     </section>
 
-    <div *ngIf="carregando" class="carregando">Carregando...</div>
+    @if (carregando) {
+      <div class="carregando">Carregando...</div>
+    }
   </div>
 </div>
