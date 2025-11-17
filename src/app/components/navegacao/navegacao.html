@@ -6,12 +6,16 @@
       <a routerLink="/" class="link" [class.ativo]="isPaginaAtiva('/')">Início</a>
       <a routerLink="/filmes" class="link" [class.ativo]="isPaginaAtiva('/filmes')">Filmes</a>
       <a routerLink="/series" class="link" [class.ativo]="isPaginaAtiva('/series')">Séries</a>
+     <a class="link" (click)="irParaLogin()">Login</a>
+
+
+      
       
       <div class="busca-container">
         <button class="btn-busca" (click)="toggleBusca()">
           🔍︎
         </button>
-        
+      
         <div class="campo-busca" [class.ativo]="mostrarBusca">
           <input 
             type="text" 
@@ -21,6 +25,8 @@
             class="input-busca">
           <button class="btn-buscar" (click)="buscar()">Buscar</button>
           <button class="btn-fechar" (click)="fecharBusca()">✕</button>
+          
+
         </div>
       </div>
     </div>

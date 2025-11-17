@@ -1,0 +1,50 @@
+<div class="login-container">
+
+  <div class="login-card">
+
+    <h2 *ngIf="modo === 'login'">Entrar</h2>
+    <h2 *ngIf="modo === 'registro'">Criar Conta</h2>
+
+    <form (ngSubmit)="modo === 'login' ? fazerLogin() : fazerRegistro()">
+
+      <div class="campo">
+        <label>Email</label>
+        <input
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          required
+          placeholder="seuemail@email.com">
+      </div>
+
+      <div class="campo">
+        <label>Senha</label>
+        <input
+          type="password"
+          [(ngModel)]="senha"
+          name="senha"
+          required
+          placeholder="Sua senha">
+      </div>
+
+      <button class="btn-login" type="submit">
+        {{ modo === 'login' ? 'Fazer Login' : 'Criar Conta' }}
+      </button>
+
+      <p class="alternar">
+        <span *ngIf="modo === 'login'">
+          Não tem conta?
+          <a (click)="modo = 'registro'">Criar conta</a>
+        </span>
+
+        <span *ngIf="modo === 'registro'">
+          Já tem conta?
+          <a (click)="modo = 'login'">Fazer login</a>
+        </span>
+      </p>
+
+    </form>
+
+  </div>
+
+</div>

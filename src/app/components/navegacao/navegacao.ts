@@ -45,8 +45,12 @@ export class NavegacaoComponent implements OnInit {
     this.mostrarBusca = false;
     this.termoBusca = '';
   }
+  irParaLogin(){
+    this.router.navigate(['/auth']);
+  }
 
   isPaginaAtiva(rota: string): boolean {
     return this.paginaAtiva === rota;
   }
+
 }

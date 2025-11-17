@@ -1,0 +1,48 @@
+.auth-container {
+  width: 300px;
+  margin: 40px auto;
+  font-family: Arial, sans-serif;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.link {
+  cursor: pointer;
+  color: #555;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link.active {
+  color: #000;
+  border-bottom: 2px solid #000;
+}
+
+.form-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+}
+
+.btn {
+  padding: 12px;
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}

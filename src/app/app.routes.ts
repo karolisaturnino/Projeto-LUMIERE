@@ -4,12 +4,15 @@ import { PaginaFilmesComponent } from './components/pagina-filmes/pagina-filmes'
 import { PaginaSeriesComponent } from './components/pagina-series/pagina-series';
 import { PaginaBuscaComponent } from './components/pagina-busca/pagina-busca';
 import { PaginaDetalhesComponent } from './components/pagina-detalhes/pagina-detalhes';
+import { AuthComponent } from './components/auth/auth';
 
 export const routes: Routes = [
+   {path: 'auth',component: AuthComponent},
   { path: '', component: PaginaInicialComponent },
   { path: 'filmes', component: PaginaFilmesComponent },
   { path: 'series', component: PaginaSeriesComponent },
   { path: 'busca', component: PaginaBuscaComponent },
   { path: 'detalhes/:tipo/:id', component: PaginaDetalhesComponent },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
+ 
 ];

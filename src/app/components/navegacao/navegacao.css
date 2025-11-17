@@ -54,6 +54,30 @@
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
 }
+/* Botão LOGIN */
+.link.btn-login {
+  background: #5e44ff;
+  color: white !important;
+  border-color: #5e44ff;
+}
+
+.link.btn-login:hover {
+  background: #7a63ff;
+  color: #000;
+}
+
+/* Botão CRIAR CONTA */
+.link.btn-registro {
+  background: #33c860;
+  color: white !important;
+  border-color: #33c860;
+}
+
+.link.btn-registro:hover {
+  background: #44e375;
+  color: #000;
+}
+
 
 .link.ativo[routerlink="/"] {
   background: #ffd700;
