@@ -54,12 +54,21 @@
           
           <div class="cartoes" #carrosselFilmes>
             @for (filme of filmesEmAlta; track filme.id) {
-              <div class="cartao" (click)="irParaDetalhes('filme', filme.id)">
+              <div class="cartao-filme" (click)="irParaDetalhes('filme', filme.id)">
                 <img 
                   [src]="obterUrlImagem(filme.poster_path)" 
                   [alt]="filme.title"
                   class="capa">
-                <div class="nome">{{ filme.title }}</div>
+                <div class="info">
+                  <h3 class="nome">{{ filme.title }}</h3>
+                  <div class="detalhes">
+                    <span class="ano">{{ filme.release_date ? (filme.release_date.substring(0, 4)) : 'N/A' }}</span>
+                    <span class="avaliacao">
+                      <span class="estrela">⭐</span>
+                      {{ filme.vote_average ? (filme.vote_average.toFixed(1)) : 'N/A' }}
+                    </span>
+                  </div>
+                </div>
               </div>
             }
             
@@ -107,12 +116,21 @@
           
           <div class="cartoes" #carrosselSeries>
             @for (serie of seriesEmAlta; track serie.id) {
-              <div class="cartao" (click)="irParaDetalhes('serie', serie.id)">
+              <div class="cartao-filme" (click)="irParaDetalhes('serie', serie.id)">
                 <img 
                   [src]="obterUrlImagem(serie.poster_path)" 
                   [alt]="serie.name"
                   class="capa">
-                <div class="nome">{{ serie.name }}</div>
+                <div class="info">
+                  <h3 class="nome">{{ serie.name }}</h3>
+                  <div class="detalhes">
+                    <span class="ano">{{ serie.first_air_date ? (serie.first_air_date.substring(0, 4)) : 'N/A' }}</span>
+                    <span class="avaliacao">
+                      <span class="estrela">⭐</span>
+                      {{ serie.vote_average ? (serie.vote_average.toFixed(1)) : 'N/A' }}
+                    </span>
+                  </div>
+                </div>
               </div>
             }
             
