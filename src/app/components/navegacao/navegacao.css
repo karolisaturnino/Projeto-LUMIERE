@@ -89,15 +89,25 @@
 }
 
 .link[routerlink="/filmes"]:hover:not(.ativo) {
+<<<<<<< HEAD
   background: #ffd700;
   color: white;
+=======
+  background: #e50914;
+  color: rgb(0, 0, 0);
+>>>>>>> f6a0cd26c64de5847efd222338d580d48ab55012
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
 }
 
 .link[routerlink="/series"]:hover:not(.ativo) {
+<<<<<<< HEAD
   background: #ffd700;
   color: white;
+=======
+  background: #00a8ff;
+  color: rgb(0, 0, 0);
+>>>>>>> f6a0cd26c64de5847efd222338d580d48ab55012
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 168, 255, 0.4);
 }
@@ -117,7 +127,7 @@
 
 .link.ativo[routerlink="/filmes"] {
   background: #e50914;
-  color: white;
+  color: rgb(0, 0, 0);
   border-color: #e50914;
   box-shadow: 0 2px 8px rgba(229, 9, 20, 0.4);
 }
@@ -129,7 +139,7 @@
 
 .link.ativo[routerlink="/series"] {
   background: #00a8ff;
-  color: white;
+  color: rgb(0, 0, 0);
   border-color: #00a8ff;
   box-shadow: 0 2px 8px rgba(0, 168, 255, 0.4);
 }
