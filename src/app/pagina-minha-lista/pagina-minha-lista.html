@@ -1,0 +1,20 @@
+<div class="minha-lista-container">
+  <h2>Minha Lista ⭐</h2>
+
+  <p>Aqui você verá todos os filmes e séries que adicionou à sua lista.</p>
+
+  <!-- Quando a lista estiver vazia -->
+  <div *ngIf="lista.length === 0" class="lista-vazia">
+    Sua lista está vazia 😢  
+  </div>
+
+  <!-- Quando houver itens -->
+  <div class="grid-lista" *ngIf="lista.length > 0">
+    <div class="item" *ngFor="let item of lista">
+      <img [src]="item.poster" alt="{{ item.titulo }}">
+      <h3>{{ item.titulo }}</h3>
+
+      <button (click)="removerDaLista(item.id)">Remover</button>
+    </div>
+  </div>
+</div>

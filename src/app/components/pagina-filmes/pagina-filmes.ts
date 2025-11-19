@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { TmdbService } from '../../services/tmdb';
 import { Filme } from '../../models/filme';
+import { MinhaListaService } from '../../services/minha-lista.service';
 
 interface Destaque {
   tipo: 'filme';
@@ -31,7 +32,8 @@ export class PaginaFilmesComponent implements OnInit, OnDestroy {
 
   constructor(
     private tmdbService: TmdbService,
-    private router: Router
+    private router: Router,
+    private listaService: MinhaListaService
   ) {}
 
   ngOnInit(): void {
@@ -40,9 +42,7 @@ export class PaginaFilmesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.intervalo) {
-      clearInterval(this.intervalo);
-    }
+    if (this.intervalo) clearInterval(this.intervalo);
   }
 
   carregarFilmes(): void {
@@ -75,9 +75,7 @@ export class PaginaFilmesComponent implements OnInit, OnDestroy {
   }
 
   iniciarCarrossel(): void {
-    if (this.intervalo) {
-      clearInterval(this.intervalo);
-    }
+    if (this.intervalo) clearInterval(this.intervalo);
 
     this.intervalo = setInterval(() => {
       this.proximoDestaque();
@@ -134,6 +132,15 @@ export class PaginaFilmesComponent implements OnInit, OnDestroy {
     this.router.navigate(['/detalhes', tipo, id]);
   }
 
+  adicionarNaLista(filme: any) {
+    this.listaService.adicionar({
+      id: filme.id,
+      titulo: filme.title,
+      poster: filme.poster_path
+    });
+
+    alert("Filme adicionado à sua lista!");
+  }
   obterUrlImagem(caminho: string): string {
     if (!caminho) {
       return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9Ijc1MCIgdmlld0JveD0iMCAwIDUwMCA3NTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNzUwIiBmaWxsPSIjMzMzIi8+CjxwYXRoIGQ9Ik0yMDAgMzI1TDI3NSAyNTBMMzUwIDMyNUgyMDBaIiBmaWxsPSIjNjY2Ii8+Cjx0ZXh0IHg9IjI1MCIgeT0iNDUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0iQXJpYWwiPk5lbmh1bWEgSW1hZ2VtPC90ZXh0Pgo8L3N2Zz4K';

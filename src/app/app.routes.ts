@@ -5,6 +5,7 @@ import { PaginaSeriesComponent } from './components/pagina-series/pagina-series'
 import { PaginaBuscaComponent } from './components/pagina-busca/pagina-busca';
 import { PaginaDetalhesComponent } from './components/pagina-detalhes/pagina-detalhes';
 import { AuthComponent } from './components/auth/auth';
+import { PaginaMinhaListaComponent } from './pagina-minha-lista/pagina-minha-lista';
 
 export const routes: Routes = [
    {path: 'auth',component: AuthComponent},
@@ -13,6 +14,7 @@ export const routes: Routes = [
   { path: 'series', component: PaginaSeriesComponent },
   { path: 'busca', component: PaginaBuscaComponent },
   { path: 'detalhes/:tipo/:id', component: PaginaDetalhesComponent },
+  { path: 'minha-lista', component: PaginaMinhaListaComponent },
   { path: '**', redirectTo: '' },
  
 ];

@@ -3,6 +3,7 @@ import { Router, RouterLink, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { filter } from 'rxjs/operators';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navegacao',
@@ -12,18 +13,28 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./navegacao.css']
 })
 export class NavegacaoComponent implements OnInit {
+
   termoBusca: string = '';
   mostrarBusca: boolean = false;
   paginaAtiva: string = '/';
 
-  constructor(private router: Router) {}
+  usuarioLogado: boolean = false;
+
+  constructor(private router: Router, public authService: AuthService) {}
 
   ngOnInit(): void {
+
+    // Detecta troca de rota
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: any) => {
         this.paginaAtiva = event.url;
       });
+
+    // Detecta login/logout em tempo real
+    this.authService.user$.subscribe(user => {
+      this.usuarioLogado = !!user;
+    });
   }
 
   toggleBusca(): void {
@@ -45,8 +56,13 @@ export class NavegacaoComponent implements OnInit {
     this.mostrarBusca = false;
     this.termoBusca = '';
   }
-  irParaLogin(){
+
+  irParaLogin() {
     this.router.navigate(['/auth']);
+  }
+
+  irParaMinhaLista() {
+    this.router.navigate(['/minha-lista']);
   }
 
   isPaginaAtiva(rota: string): boolean {

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { TmdbService } from '../../services/tmdb';
 import { Serie } from '../../models/serie';
+import { MinhaListaService } from '../../services/minha-lista.service';
 
 interface Destaque {
   tipo: 'serie';
@@ -31,7 +32,8 @@ export class PaginaSeriesComponent implements OnInit, OnDestroy {
 
   constructor(
     private tmdbService: TmdbService,
-    private router: Router
+    private router: Router,
+    private listaService: MinhaListaService
   ) {}
 
   ngOnInit(): void {
@@ -40,9 +42,7 @@ export class PaginaSeriesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.intervalo) {
-      clearInterval(this.intervalo);
-    }
+    if (this.intervalo) clearInterval(this.intervalo);
   }
 
   carregarSeries(): void {
@@ -75,9 +75,7 @@ export class PaginaSeriesComponent implements OnInit, OnDestroy {
   }
 
   iniciarCarrossel(): void {
-    if (this.intervalo) {
-      clearInterval(this.intervalo);
-    }
+    if (this.intervalo) clearInterval(this.intervalo);
 
     this.intervalo = setInterval(() => {
       this.proximoDestaque();
@@ -117,7 +115,7 @@ export class PaginaSeriesComponent implements OnInit, OnDestroy {
     
     this.carregandoMais = true;
     this.paginaAtual++;
-    
+
     this.tmdbService.obterSeriesPopulares(this.paginaAtual).subscribe({
       next: (resposta) => {
         this.series = [...this.series, ...resposta.results];
@@ -132,6 +130,16 @@ export class PaginaSeriesComponent implements OnInit, OnDestroy {
 
   irParaDetalhes(tipo: 'filme' | 'serie', id: number): void {
     this.router.navigate(['/detalhes', tipo, id]);
+  }
+
+  adicionarNaLista(serie: any) {
+    this.listaService.adicionar({
+      id: serie.id,
+      titulo: serie.name,
+      poster: serie.poster_path
+    });
+
+    alert("Série adicionada à sua lista!");
   }
 
   obterUrlImagem(caminho: string): string {

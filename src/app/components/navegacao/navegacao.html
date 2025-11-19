@@ -6,11 +6,29 @@
       <a routerLink="/" class="link" [class.ativo]="isPaginaAtiva('/')">Início</a>
       <a routerLink="/filmes" class="link" [class.ativo]="isPaginaAtiva('/filmes')">Filmes</a>
       <a routerLink="/series" class="link" [class.ativo]="isPaginaAtiva('/series')">Séries</a>
-     <a class="link" (click)="irParaLogin()">Login</a>
 
+      <!-- MINHA LISTA (só aparece logado) -->
+      <a 
+        *ngIf="usuarioLogado"
+        routerLink="/minha-lista" 
+        class="link" 
+        [class.ativo]="isPaginaAtiva('/minha-lista')"
+      >
+        Minha Lista
+      </a>
+      <!-- FIM MINHA LISTA -->
 
-      
-      
+      <!-- LOGIN / USUÁRIO -->
+      <a *ngIf="!usuarioLogado" class="link" (click)="irParaLogin()">Login</a>
+
+      <div *ngIf="usuarioLogado" class="link usuario-box" style="display:flex; align-items:center; gap:0.5rem;">
+        <span class="usuario-text">
+          Olá, {{ (authService.user$ | async)?.email || 'Usuário' }}
+        </span>
+        <button class="btn-logout" (click)="authService.logout()">Sair</button>
+      </div>
+      <!-- FIM LOGIN / USUÁRIO -->
+
       <div class="busca-container">
         <button class="btn-busca" (click)="toggleBusca()">
           🔍︎
@@ -23,12 +41,12 @@
             placeholder="Buscar filmes e séries..."
             (keyup.enter)="buscar()"
             class="input-busca">
+
           <button class="btn-buscar" (click)="buscar()">Buscar</button>
           <button class="btn-fechar" (click)="fecharBusca()">✕</button>
-          
-
         </div>
       </div>
+
     </div>
   </div>
 </nav>

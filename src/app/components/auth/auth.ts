@@ -115,7 +115,8 @@ import { Router } from '@angular/router';
       text-align: center;
     }
   `]
-})export class AuthComponent {
+})
+export class AuthComponent {
   email = '';
   senha = '';
   erro = '';
@@ -148,17 +149,21 @@ import { Router } from '@angular/router';
   }
 
   fazerRegistro() {
-  console.log("Chamou registro!", this.email, this.senha);
+    this.erro = '';
 
-  this.authService.register(this.email, this.senha).subscribe({
-    next: () => {
-      alert('Conta criada com sucesso!');
-      this.router.navigate(['/']);
-    },
-    error: (err) => {
-      console.error("ERRO AO CRIAR CONTA:", err);
-      alert('Erro ao criar conta. Verifique email e senha.');
-    }
-  });
-}
+    this.authService.register(this.email, this.senha).subscribe({
+      next: () => {
+        // LOGIN AUTOMÁTICO
+        this.authService.login(this.email, this.senha).subscribe({
+          next: () => {
+            this.router.navigate(['/']); // onde quiser mandar após registro
+          }
+        });
+      },
+      error: (err) => {
+        console.error("ERRO AO CRIAR CONTA:", err);
+        this.erro = 'Erro ao criar conta. Verifique email e senha.';
+      }
+    });
+  }
 }

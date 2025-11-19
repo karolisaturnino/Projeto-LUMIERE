@@ -1,15 +1,27 @@
 // src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, authState, User } from '@angular/fire/auth';
-import { from, Observable, of } from 'rxjs';
+import { 
+  Auth, 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  signOut, 
+  User 
+} from '@angular/fire/auth';
+import { authState } from '@angular/fire/auth';
+import { from, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+
   user$: Observable<User | null>;
 
   constructor(private auth: Auth) {
     this.user$ = authState(this.auth);
   }
+
+  // ✔️ AGORA GETUSUARIOATUAL FUNCIONA DE VERDADE
+  
+  
 
   register(email: string, password: string) {
     return from(createUserWithEmailAndPassword(this.auth, email, password));
@@ -23,7 +35,13 @@ export class AuthService {
     return from(signOut(this.auth));
   }
 
-  getCurrentUser(): Promise<User | null> {
-    return this.auth.currentUser ? Promise.resolve(this.auth.currentUser) : Promise.resolve(null);
+  // (Opcional, mas deixei caso use depois)
+ getCurrentUser(): Promise<User | null> {
+    return this.auth.currentUser 
+      ? Promise.resolve(this.auth.currentUser) 
+      : Promise.resolve(null);
+  }
+  getUsuarioAtual(): Promise<User | null> {
+    return this.getCurrentUser();
   }
 }

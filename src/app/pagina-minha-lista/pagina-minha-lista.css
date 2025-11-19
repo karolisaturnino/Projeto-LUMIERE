@@ -1,0 +1,58 @@
+.minha-lista-container {
+  padding: 20px;
+  color: #fff; /* garante que o texto não fique preto */
+}
+
+.minha-lista-container h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: #ffffff;
+}
+
+.lista-vazia {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #cccccc; /* cinza claro, visível */
+  text-align: center;
+}
+
+.grid-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.item {
+  background: #171717;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.item img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+button {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  background-color: #e50914;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #b20710;
+}

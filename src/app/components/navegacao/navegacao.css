@@ -89,14 +89,14 @@
 }
 
 .link[routerlink="/filmes"]:hover:not(.ativo) {
-  background: #e50914;
+  background: #ffd700;
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
 }
 
 .link[routerlink="/series"]:hover:not(.ativo) {
-  background: #00a8ff;
+  background: #ffd700;
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 168, 255, 0.4);
@@ -260,4 +260,33 @@
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
   }
+  .usuario-box {
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  background: transparent;
+}
+
+.usuario-text {
+  color: #fff;
+  font-weight: 600;
+  font-family: Arial, sans-serif;
+}
+
+.btn-logout {
+  background: transparent;
+  border: 2px solid transparent;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-logout:hover {
+  background: #ffd700;
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255,215,0,0.15);
+}
+
 }
