@@ -50,7 +50,7 @@
   font-family: Arial, sans-serif;
   position: relative;
   z-index: 10;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .btn-voltar:hover {
@@ -99,7 +99,7 @@
 
 .titulo {
   font-size: 2.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   line-height: 1.2;
   font-family: Arial, sans-serif;
 }
@@ -250,6 +250,114 @@
   font-family: Arial, sans-serif;
 }
 
+.comentarios-container {
+  margin-top: 40px;
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+}
+
+.titulo-comentarios {
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, #ffd700, #ff6b00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  text-align: center;
+}
+
+.comentario {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 18px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  border-left: 4px solid #ffca28;
+}
+
+.comentario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.comentario-header strong {
+  color: #ffca28;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.comentario p {
+  color: #e3e3e3;
+  margin: 0;
+  font-size: 15px;
+}
+
+.sem-comentarios {
+  color: #888;
+  margin-bottom: 20px;
+  text-align: center;
+  font-style: normal;
+}
+
+.novo-comentario {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.novo-comentario label {
+  color: #ccc;
+  font-weight: 600;
+}
+
+.novo-comentario textarea {
+  width: 100%;
+  height: 110px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 15px;
+  resize: none;
+  transition: 0.3s;
+  font-family: Arial, sans-serif;
+}
+
+.novo-comentario textarea:focus {
+  outline: none;
+  border-color: #ffca28;
+  box-shadow: 0 0 8px rgba(255, 202, 40, 0.6);
+}
+
+.estrelas {
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.estrelas span {
+  color: #444;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.estrelas span.selecionada {
+  color: #ffcc00;
+}
+
+.estrelas span:hover {
+  color: #ffcc00;
+}
+
 @media (max-width: 968px) {
   .detalhes-conteudo {
     grid-template-columns: 250px 1fr;
@@ -262,6 +370,10 @@
   
   .informacoes-container {
     padding: 1.5rem;
+  }
+  
+  .titulo-comentarios {
+    font-size: 1.5rem;
   }
 }
 
@@ -304,6 +416,10 @@
   .produtoras-lista {
     justify-content: center;
   }
+  
+  .titulo-comentarios {
+    font-size: 1.3rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -323,140 +439,19 @@
     padding: 1rem;
   }
   
-/* ------------------------------------------------------------------------------------------ */
-/*                                     ÁREA DE COMENTÁRIOS                                    */
-/* ------------------------------------------------------------------------------------------ */
-
-.comentarios-container {
-  margin-top: 40px;
-  background: #1a1a1a;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 0 15px #0007;
-}
-
-.comentarios-container h2 {
-  margin-bottom: 15px;
-  color: #ffe27a;
-  font-size: 24px;
-  font-weight: bold;
-  text-shadow: 0 0 4px #000;
-}
-
-/* ---------------- LISTA COMENTÁRIOS ---------------- */
-
-.comentario {
-  background: #242424;
-  padding: 18px;
-  border-radius: 12px;
-  margin-bottom: 14px;
-  border-left: 5px solid #ffca28;
-}
-
-.comentario-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
-}
-
-.comentario-autor {
-  color: #ffca28;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.comentario-estrelas {
-  font-size: 20px;
-  color: #ffca28;
-}
-
-.comentario p {
-  color: #e3e3e3;
-  margin: 0;
-  font-size: 15px;
-}
-
-.sem-comentarios {
-  color: #bbb;
-  margin-bottom: 20px;
-  font-style: italic;
-  text-align: center;
-}
-
-/* ---------------- FORMULÁRIO ---------------- */
-
-.novo-comentario {
-  margin-top: 25px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* Campo de texto moderno */
-.novo-comentario textarea {
-  width: 100%;
-  height: 110px;
-  padding: 12px 16px;
-  border-radius: 12px;
-  background: #2b2b2b;
-  border: 2px solid #3a3a3a;
-  color: #fff;
-  font-size: 15px;
-  resize: none;
-  transition: 0.3s;
-  font-family: "Segoe UI", sans-serif;
-}
-
-.novo-comentario textarea:focus {
-  outline: none;
-  border-color: #ffca28;
-  box-shadow: 0 0 8px #ffca2860;
-}
-
-/* ---------------- ESTRELAS CLICÁVEIS ---------------- */
-
-.estrelas {
-  display: flex;
-  gap: 5px;
-  cursor: pointer;
-  font-size: 32px;
-  margin-bottom: 10px;
-}
-
-.estrelas span {
-  color: #444;
-  transition: 0.2s;
-  cursor: pointer;
-}
-
-.estrelas span.selecionada {
-  color: #ffcc00;
-}
-
-.estrelas span:hover {
-  color: #ffcc00;
-}
-
-/* ---------------- BOTÃO ENVIAR ---------------- */
-
-.novo-comentario button {
-  width: 170px;
-  padding: 12px;
-  background: #ffca28;
-  border: none;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
-  align-self: flex-start;
-  transition: 0.3s;
-  color: #000;
-}
-
-.novo-comentario button:hover {
-  background: #ffdb5c;
-  transform: scale(1.05);
-}
-
+  .comentarios-container {
+    padding: 1rem;
+  }
+  
+  .titulo-comentarios {
+    font-size: 1.2rem;
+  }
+  
+  .estrelas {
+    font-size: 24px;
+  }
+  
+  .btn-voltar {
+    width: 100%;
+  }
 }

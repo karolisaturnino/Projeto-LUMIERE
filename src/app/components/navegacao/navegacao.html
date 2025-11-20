@@ -7,27 +7,36 @@
       <a routerLink="/filmes" class="link" [class.ativo]="isPaginaAtiva('/filmes')">Filmes</a>
       <a routerLink="/series" class="link" [class.ativo]="isPaginaAtiva('/series')">Séries</a>
 
-      <!-- MINHA LISTA (só aparece logado) -->
-      <a 
-        *ngIf="usuarioLogado"
-        routerLink="/minha-lista" 
-        class="link" 
-        [class.ativo]="isPaginaAtiva('/minha-lista')"
-      >
-        Minha Lista
-      </a>
-      <!-- FIM MINHA LISTA -->
+      @if (usuarioLogado) {
+        <a 
+          routerLink="/minha-lista" 
+          class="link" 
+          [class.ativo]="isPaginaAtiva('/minha-lista')"
+        >
+          Minha Lista
+        </a>
+      }
 
-      <!-- LOGIN / USUÁRIO -->
-      <a *ngIf="!usuarioLogado" class="link" (click)="irParaLogin()">Login</a>
+      @if (!usuarioLogado) {
+        <a class="link btn-login" [class.ativo]="isPaginaAtiva('/auth')" (click)="irParaLogin()">Login</a>
+      }
 
-      <div *ngIf="usuarioLogado" class="link usuario-box" style="display:flex; align-items:center; gap:0.5rem;">
-        <span class="usuario-text">
-          Olá, {{ (authService.user$ | async)?.email || 'Usuário' }}
-        </span>
-        <button class="btn-logout" (click)="authService.logout()">Sair</button>
-      </div>
-      <!-- FIM LOGIN / USUÁRIO -->
+      @if (usuarioLogado) {
+        <div class="usuario-container">
+          <div class="usuario-perfil" (mouseenter)="expandirPerfil()" (mouseleave)="recolherPerfil()">
+            <div class="usuario-icone">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" fill="white"/>
+                <path d="M12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="white"/>
+              </svg>
+            </div>
+            <div class="usuario-dropdown" [class.expandido]="perfilExpandido">
+              <span class="usuario-email">{{ (authService.user$ | async)?.email || 'Usuário' }}</span>
+              <button class="btn-logout" (click)="authService.logout()">Sair</button>
+            </div>
+          </div>
+        </div>
+      }
 
       <div class="busca-container">
         <button class="btn-busca" (click)="toggleBusca()">
@@ -47,6 +56,39 @@
         </div>
       </div>
 
+      <button class="menu-hamburguer" (click)="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div class="menu-mobile" [class.ativo]="menuAberto">
+      <a routerLink="/" class="link-mobile" (click)="fecharMenu()" [class.ativo]="isPaginaAtiva('/')">Início</a>
+      <a routerLink="/filmes" class="link-mobile" (click)="fecharMenu()" [class.ativo]="isPaginaAtiva('/filmes')">Filmes</a>
+      <a routerLink="/series" class="link-mobile" (click)="fecharMenu()" [class.ativo]="isPaginaAtiva('/series')">Séries</a>
+      
+      @if (usuarioLogado) {
+        <a 
+          routerLink="/minha-lista" 
+          class="link-mobile" 
+          (click)="fecharMenu()"
+          [class.ativo]="isPaginaAtiva('/minha-lista')"
+        >
+          Minha Lista
+        </a>
+      }
+
+      @if (!usuarioLogado) {
+        <a class="link-mobile btn-login-mobile" [class.ativo]="isPaginaAtiva('/auth')" (click)="irParaLogin(); fecharMenu()">Login</a>
+      }
+
+      @if (usuarioLogado) {
+        <div class="usuario-mobile">
+          <span class="usuario-email-mobile">{{ (authService.user$ | async)?.email || 'Usuário' }}</span>
+          <button class="btn-logout-mobile" (click)="authService.logout(); fecharMenu()">Sair</button>
+        </div>
+      }
     </div>
   </div>
 </nav>

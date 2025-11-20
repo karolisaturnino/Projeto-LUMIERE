@@ -110,6 +110,21 @@ export class PaginaFilmesComponent implements OnInit, OnDestroy {
     }
   }
 
+  adicionarDestaqueNaLista(): void {
+    if (this.destaqueAtual) {
+      const filmeDestaque = this.filmes.find(f => f.id === this.destaqueAtual?.id);
+      if (filmeDestaque) {
+        this.listaService.adicionar({
+          id: filmeDestaque.id,
+          titulo: filmeDestaque.title,
+          poster: this.obterUrlImagem(filmeDestaque.poster_path),
+          tipo: 'filme'
+        });
+        alert("Filme adicionado à sua lista!");
+      }
+    }
+  }
+
   carregarMais(): void {
     if (this.paginaAtual >= this.totalPaginas) return;
     
@@ -132,15 +147,6 @@ export class PaginaFilmesComponent implements OnInit, OnDestroy {
     this.router.navigate(['/detalhes', tipo, id]);
   }
 
-  adicionarNaLista(filme: any) {
-    this.listaService.adicionar({
-      id: filme.id,
-      titulo: filme.title,
-      poster: filme.poster_path
-    });
-
-    alert("Filme adicionado à sua lista!");
-  }
   obterUrlImagem(caminho: string): string {
     if (!caminho) {
       return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9Ijc1MCIgdmlld0JveD0iMCAwIDUwMCA3NTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNzUwIiBmaWxsPSIjMzMzIi8+CjxwYXRoIGQ9Ik0yMDAgMzI1TDI3NSAyNTBMMzUwIDMyNUgyMDBaIiBmaWxsPSIjNjY2Ii8+Cjx0ZXh0IHg9IjI1MCIgeT0iNDUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0iQXJpYWwiPk5lbmh1bWEgSW1hZ2VtPC90ZXh0Pgo8L3N2Zz4K';

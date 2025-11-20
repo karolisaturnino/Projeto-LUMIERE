@@ -13,13 +13,14 @@
         <div class="container">
           <div class="destaque-tipo">📺 Série em Destaque</div>
           <h1 class="destaque-titulo">{{ destaqueAtual.titulo }}</h1>
-          <button class="btn-ver-detalhes" (click)="verDetalhesDestaque()">
-            Ver Detalhes
-          </button>
-          <button class="btn-add" (click)="adicionarNaLista(series)">
-  ➕ Adicionar à Minha Lista
-</button>
-
+          <div class="destaque-botoes">
+            <button class="btn-ver-detalhes" (click)="verDetalhesDestaque()">
+              Ver Detalhes
+            </button>
+            <button class="btn-add-lista" (click)="adicionarDestaqueNaLista()">
+              + Minha Lista
+            </button>
+          </div>
         </div>
       </div>
 
@@ -43,7 +44,7 @@
   <div class="container">
     <div class="cabecalho-pagina">
       <h1 class="titulo-pagina">📺 Catálogo de Séries</h1>
-      <p class="subtitulo-pagina">Descubra as melhores séries para maratonar</p>
+      <p class="subtitulo-pagina">Descubra as melhores séries para avaliar</p>
     </div>
 
     @if (carregando) {

@@ -15,7 +15,6 @@
     <div class="detalhes-container">
       <button class="btn-voltar" (click)="voltar()">← Voltar</button>
       
-      
       <div class="detalhes-conteudo">
         <div class="poster-container">
           <img 
@@ -27,9 +26,10 @@
         <div class="informacoes-container">
           <div class="informacoes">
             <h1 class="titulo">{{ eFilme(item) ? item.title : item.name }}</h1>
-            <button class="btn-add-lista" (click)="adicionarNaLista()">
-    ➕ Adicionar à Minha Lista
-  </button>
+            
+            <button class="btn-voltar" (click)="adicionarNaLista()">
+              + Adicionar à Minha Lista
+            </button>
             
             <div class="nota-container">
               <div class="nota">
@@ -78,7 +78,6 @@
               <h3>Sinopse</h3>
               <p>{{ item.overview }}</p>
             </div>
-          
 
             <div class="produtoras" *ngIf="item.production_companies && item.production_companies.length > 0">
               <strong>Produtoras:</strong>
@@ -87,51 +86,38 @@
                   {{ produtora.name }}
                 </span>
               </div>
-                <!-- ============================= -->
-<!--        COMENTÁRIOS           -->
-<!-- ============================= -->
+            </div>
 
-<div class="comentarios-container">
+            <div class="comentarios-container">
+              <h2 class="titulo-comentarios">Comentários & Avaliações</h2>
 
-  <h2>Comentários & Avaliações ⭐</h2>
+              <div *ngIf="comentarios.length > 0; else semComentarios">
+                <div class="comentario" *ngFor="let c of comentarios">
+                  <div class="comentario-header">
+                    <strong>Nota: {{ c.nota }}/10</strong>
+                    <span class="data">{{ c.data }}</span>
+                  </div>
+                  <p>{{ c.texto }}</p>
+                </div>
+              </div>
 
-  <!-- Lista de comentários -->
-  <div *ngIf="comentarios.length > 0; else semComentarios">
+              <ng-template #semComentarios>
+                <p class="sem-comentarios">Nenhum comentario por aqui ainda</p>
+              </ng-template>
 
-    <div class="comentario" *ngFor="let c of comentarios">
-      <div class="comentario-header">
-        <strong>Nota: {{ c.nota }}/10</strong>
-        <span class="data">{{ c.data }}</span>
-      </div>
-      <p>{{ c.texto }}</p>
-    </div>
+              <div class="novo-comentario">
+                <label>Seu comentário:</label>
+                <textarea [(ngModel)]="novoComentario" placeholder="Escreva aqui..."></textarea>
 
-  </div>
+                <label>Sua Nota:</label>
+                <div class="estrelas">
+                  <span *ngFor="let estrela of estrelasArray"
+                        (click)="selecionarNota(estrela)"
+                        [class.selecionada]="estrela <= novaNota">★</span>
+                </div>
 
-  <!-- Quando não houver comentários -->
-  <ng-template #semComentarios>
-    <p class="sem-comentarios">Nenhum comentário ainda. Seja o primeiro! 😄</p>
-  </ng-template>
-
-  <!-- Formulário para novo comentário -->
-  <div class="novo-comentario">
-
-    <label>Seu comentário:</label>
-    <textarea [(ngModel)]="novoComentario" placeholder="Escreva aqui..."></textarea>
-
-    <label>Sua Nota:</label>
-
-<div class="estrelas">
-  <span *ngFor="let estrela of [1,2,3,4,5,6,7,8,9,10]"
-        (click)="selecionarNota(estrela)"
-        [class.selecionada]="estrela <= novaNota">★</span>
-</div>
-
-    <button (click)="adicionarComentario()">Enviar</button>
-  </div>
-
-</div>
-
+                <button class="btn-voltar" (click)="adicionarComentario()">Enviar</button>
+              </div>
             </div>
           </div>
         </div>

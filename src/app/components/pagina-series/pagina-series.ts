@@ -110,6 +110,21 @@ export class PaginaSeriesComponent implements OnInit, OnDestroy {
     }
   }
 
+  adicionarDestaqueNaLista(): void {
+    if (this.destaqueAtual) {
+      const serieDestaque = this.series.find(s => s.id === this.destaqueAtual?.id);
+      if (serieDestaque) {
+        this.listaService.adicionar({
+          id: serieDestaque.id,
+          titulo: serieDestaque.name,
+          poster: this.obterUrlImagem(serieDestaque.poster_path),
+          tipo: 'serie'
+        });
+        alert("Série adicionada à sua lista!");
+      }
+    }
+  }
+
   carregarMais(): void {
     if (this.paginaAtual >= this.totalPaginas) return;
     
@@ -130,16 +145,6 @@ export class PaginaSeriesComponent implements OnInit, OnDestroy {
 
   irParaDetalhes(tipo: 'filme' | 'serie', id: number): void {
     this.router.navigate(['/detalhes', tipo, id]);
-  }
-
-  adicionarNaLista(serie: any) {
-    this.listaService.adicionar({
-      id: serie.id,
-      titulo: serie.name,
-      poster: serie.poster_path
-    });
-
-    alert("Série adicionada à sua lista!");
   }
 
   obterUrlImagem(caminho: string): string {

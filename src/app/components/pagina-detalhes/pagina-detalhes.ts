@@ -15,10 +15,13 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./pagina-detalhes.css']
 })
 export class PaginaDetalhesComponent implements OnInit {
-
   item: Filme | Serie | null = null;
   carregando = true;
   tipo: 'filme' | 'serie' = 'filme';
+  novoComentario: string = "";
+  estrelasArray = [1,2,3,4,5,6,7,8,9,10];
+  novaNota = 0;
+  comentarios: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -37,9 +40,6 @@ export class PaginaDetalhesComponent implements OnInit {
     });
   }
 
-  // ==============================
-  //        MINHA LISTA
-  // ==============================
   adicionarNaLista() {
     if (!this.item) return;
 
@@ -53,17 +53,12 @@ export class PaginaDetalhesComponent implements OnInit {
     alert("Adicionado à sua lista!");
   }
 
-  // ==============================
-  //     CARREGAR DETALHES
-  // ==============================
   carregarDetalhes(id: number): void {
     this.carregando = true;
 
     const callback = (item: any) => {
       this.item = item;
       this.carregando = false;
-
-      // carregar comentários depois que item chega
       this.carregarComentarios();
     };
 
@@ -86,9 +81,6 @@ export class PaginaDetalhesComponent implements OnInit {
     }
   }
 
-  // ==============================
-  //            VOLTAR
-  // ==============================
   voltar(): void {
     this.router.navigate(['/']);
   }
@@ -97,26 +89,20 @@ export class PaginaDetalhesComponent implements OnInit {
     this.router.navigate(['/detalhes', tipo, id]);
   }
 
-  // ==============================
-  //   IMAGENS DO TMDB
-  // ==============================
   obterUrlImagem(caminho: string): string {
     if (!caminho) {
-      return 'data:image/svg+xml;base64,...';
+      return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9Ijc1MCIgdmlld0JveD0iMCAwIDUwMCA3NTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNzUwIiBmaWxsPSIjMzMzIi8+CjxwYXRoIGQ9Ik0yMDAgMzI1TDI3NSAyNTBMMzUwIDMyNUgyMDBaIiBmaWxsPSIjNjY2Ii8+Cjx0ZXh0IHg9IjI1MCIgeT0iNDUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0iQXJpYWwiPk5lbmh1bWEgSW1hZ2VtPC90ZXh0Pgo8L3N2Zz4K';
     }
     return `https://image.tmdb.org/t/p/w500${caminho}`;
   }
 
   obterUrlImagemGrande(caminho: string): string {
     if (!caminho) {
-      return 'data:image/svg+xml;base64,...';
+      return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4MCIgaGVpZ2h0PSI3MjAiIHZpZXdCb3g9IjAgMCAxMjgwIDcyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjEyODAiIGhlaWdodD0iNzIwIiBmaWxsPSIjMzMzIi8+CjxwYXRoIGQ9Ik01MDAgMzI1TDU3NSAyNTBMNjUwIDMyNUg1MDBaIiBmaWxsPSIjNjY2Ii8+Cjx0ZXh0IHg9IjY0MCIgeT0iNDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjI0IiBmb250LWZhbWlseT0iQXJpYWwiPk5lbmh1bWEgSW1hZ2VtPC90ZXh0Pgo8L3N2Zz4K';
     }
     return `https://image.tmdb.org/t/p/w1280${caminho}`;
   }
 
-  // ==============================
-  //      TIPAGEM FILME/SÉRIE
-  // ==============================
   eFilme(item: any): item is Filme {
     return this.tipo === 'filme';
   }
@@ -125,17 +111,6 @@ export class PaginaDetalhesComponent implements OnInit {
     return this.tipo === 'serie';
   }
 
-  // ==============================
-  //   ⭐ SISTEMA DE COMENTÁRIOS ⭐
-  // ==============================
-
-  novoComentario: string = "";
-  estrelasArray = [1,2,3,4,5,6,7,8,9,10];
-  novaNota =0;
-  comentarios: any[] = [];
-
- 
-  // Carrega comentários do localStorage
   carregarComentarios() {
     if (!this.item) return;
 
@@ -143,14 +118,12 @@ export class PaginaDetalhesComponent implements OnInit {
     this.comentarios = salvo ? JSON.parse(salvo) : [];
   }
 
-  // Salva no localStorage
   salvarComentarios() {
     if (!this.item) return;
 
     localStorage.setItem("comentarios_" + this.item.id, JSON.stringify(this.comentarios));
   }
 
-  // Adiciona novo comentário
   adicionarComentario() {
     if (!this.novoComentario.trim()) return;
 
@@ -164,9 +137,10 @@ export class PaginaDetalhesComponent implements OnInit {
     this.salvarComentarios();
 
     this.novoComentario = "";
-    this.novaNota = 5;
+    this.novaNota = 0;
   }
- selecionarNota(nota: number) {
-  this.novaNota = nota;
-}
+
+  selecionarNota(nota: number) {
+    this.novaNota = nota;
+  }
 }

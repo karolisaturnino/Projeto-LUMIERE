@@ -1,20 +1,78 @@
 <div class="minha-lista-container">
-  <h2>Minha Lista ⭐</h2>
-
-  <p>Aqui você verá todos os filmes e séries que adicionou à sua lista.</p>
-
-  <!-- Quando a lista estiver vazia -->
-  <div *ngIf="lista.length === 0" class="lista-vazia">
-    Sua lista está vazia 😢  
+  <div class="header-section">
+    <h1 class="titulo-pagina">⭐ Minha Lista</h1>
+    <p class="subtitulo-pagina">Todos os filmes e séries que você adicionou</p>
   </div>
 
-  <!-- Quando houver itens -->
-  <div class="grid-lista" *ngIf="lista.length > 0">
-    <div class="item" *ngFor="let item of lista">
-      <img [src]="item.poster" alt="{{ item.titulo }}">
-      <h3>{{ item.titulo }}</h3>
-
-      <button (click)="removerDaLista(item.id)">Remover</button>
+  @if (lista.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">🎬</div>
+      <h3>Sua lista está vazia</h3>
+      <p>Explore nosso catálogo e adicione seus favoritos!</p>
+      <button class="btn-explore" routerLink="/">Explorar Catálogo</button>
     </div>
-  </div>
+  }
+
+  @if (lista.length > 0) {
+    <div class="content-grid">
+      <div class="filtros-container">
+        <button 
+          class="filtro-btn" 
+          [class.ativo]="filtroAtivo === 'todos'"
+          (click)="mudarFiltro('todos')">
+          Todos ({{ lista.length }})
+        </button>
+        <button 
+          class="filtro-btn filme" 
+          [class.ativo]="filtroAtivo === 'filmes'"
+          (click)="mudarFiltro('filmes')">
+          Filmes ({{ getFilmesCount() }})
+        </button>
+        <button 
+          class="filtro-btn serie" 
+          [class.ativo]="filtroAtivo === 'series'"
+          (click)="mudarFiltro('series')">
+          Séries ({{ getSeriesCount() }})
+        </button>
+      </div>
+
+      <div class="grid-container">
+        @for (item of listaFiltrada; track item.id) {
+          <div class="item-card">
+            <div class="card-image" (click)="verDetalhes(item)">
+              <img [src]="item.poster" [alt]="item.titulo" (error)="handleImageError($event)">
+              <div class="card-overlay">
+                <button class="btn-details-overlay">
+                  Ver Detalhes
+                </button>
+              </div>
+              <div class="card-badge" [class.serie]="item.tipo === 'serie'">
+                {{ item.tipo === 'serie' ? 'SÉRIE' : 'FILME' }}
+              </div>
+            </div>
+            
+            <div class="card-content">
+              <h3 class="item-title" (click)="verDetalhes(item)">{{ item.titulo }}</h3>
+              <div class="avaliacao-container">
+                <div class="avaliacao-texto">
+                  <span class="texto-branco">Sua nota: </span>
+                  <span class="nota-amarela">{{ getNotaUsuario(item.id) }}/10</span>
+                </div>
+                <div class="estrelas-avaliacao">
+                  @for (estrela of [1,2,3,4,5,6,7,8,9,10]; track estrela) {
+                    <span class="estrela" [class.ativa]="estrela <= getNotaUsuario(item.id)">★</span>
+                  }
+                </div>
+              </div>
+              <div class="card-actions">
+                <button class="btn-remove" (click)="removerDaLista(item.id)" title="Remover da lista">
+                  Remover
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
 </div>

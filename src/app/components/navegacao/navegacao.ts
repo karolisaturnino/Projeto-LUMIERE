@@ -16,22 +16,22 @@ export class NavegacaoComponent implements OnInit {
 
   termoBusca: string = '';
   mostrarBusca: boolean = false;
-  paginaAtiva: string = '/';
+  paginaAtual: string = '/';
+  menuAberto: boolean = false;
+  perfilExpandido: boolean = false;
 
   usuarioLogado: boolean = false;
 
   constructor(private router: Router, public authService: AuthService) {}
 
   ngOnInit(): void {
-
-    // Detecta troca de rota
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: any) => {
-        this.paginaAtiva = event.url;
+        this.paginaAtual = event.url;
+        this.fecharMenu();
       });
 
-    // Detecta login/logout em tempo real
     this.authService.user$.subscribe(user => {
       this.usuarioLogado = !!user;
     });
@@ -57,16 +57,27 @@ export class NavegacaoComponent implements OnInit {
     this.termoBusca = '';
   }
 
+  toggleMenu(): void {
+    this.menuAberto = !this.menuAberto;
+  }
+
+  fecharMenu(): void {
+    this.menuAberto = false;
+  }
+
+  expandirPerfil(): void {
+    this.perfilExpandido = true;
+  }
+
+  recolherPerfil(): void {
+    this.perfilExpandido = false;
+  }
+
   irParaLogin() {
     this.router.navigate(['/auth']);
   }
 
-  irParaMinhaLista() {
-    this.router.navigate(['/minha-lista']);
-  }
-
   isPaginaAtiva(rota: string): boolean {
-    return this.paginaAtiva === rota;
+    return this.paginaAtual === rota;
   }
-
 }

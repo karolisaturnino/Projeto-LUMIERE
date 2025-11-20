@@ -1,50 +1,49 @@
-<div class="login-container">
-
-  <div class="login-card">
-
-    <h2 *ngIf="modo === 'login'">Entrar</h2>
-    <h2 *ngIf="modo === 'registro'">Criar Conta</h2>
-
+<div class="auth-wrapper">
+  <h2 class="auth-title">
+    @if (modo === 'login') {
+      ✓ Entrar
+    } @else {
+      + Criar Conta
+    }
+  </h2>
+  
+  <div class="auth-container">
     <form (ngSubmit)="modo === 'login' ? fazerLogin() : fazerRegistro()">
+      <input 
+        type="email" 
+        placeholder="Email"
+        [(ngModel)]="email" 
+        name="email" 
+        required
+      >
 
-      <div class="campo">
-        <label>Email</label>
-        <input
-          type="email"
-          [(ngModel)]="email"
-          name="email"
-          required
-          placeholder="seuemail@email.com">
-      </div>
+      <input 
+        type="password" 
+        placeholder="Senha"
+        [(ngModel)]="senha" 
+        name="senha" 
+        required
+      >
 
-      <div class="campo">
-        <label>Senha</label>
-        <input
-          type="password"
-          [(ngModel)]="senha"
-          name="senha"
-          required
-          placeholder="Sua senha">
-      </div>
-
-      <button class="btn-login" type="submit">
-        {{ modo === 'login' ? 'Fazer Login' : 'Criar Conta' }}
+      <button class="btn" type="submit">
+        @if (modo === 'login') {
+          Entrar
+        } @else {
+          Registrar
+        }
       </button>
-
-      <p class="alternar">
-        <span *ngIf="modo === 'login'">
-          Não tem conta?
-          <a (click)="modo = 'registro'">Criar conta</a>
-        </span>
-
-        <span *ngIf="modo === 'registro'">
-          Já tem conta?
-          <a (click)="modo = 'login'">Fazer login</a>
-        </span>
-      </p>
-
     </form>
 
-  </div>
+    <p class="mudar" (click)="modo === 'login' ? irParaRegistro() : irParaLogin()">
+      @if (modo === 'login') {
+        Não tem conta? <strong>Criar conta</strong>
+      } @else {
+        Já tem conta? <strong>Fazer login</strong>
+      }
+    </p>
 
+    @if (erro) {
+      <p class="erro">{{ erro }}</p>
+    }
+  </div>
 </div>

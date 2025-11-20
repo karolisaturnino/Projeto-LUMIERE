@@ -71,6 +71,12 @@
   font-family: Arial, sans-serif;
 }
 
+.destaque-botoes {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 .btn-ver-detalhes {
   background: var(--cor-destaque);
   color: #000;
@@ -88,6 +94,25 @@
   background: var(--cor-secundaria);
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
+}
+
+.btn-add-lista {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: Arial, sans-serif;
+}
+
+.btn-add-lista:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
 }
 
 .destaque-controles {
@@ -343,12 +368,13 @@
 
 @media (max-width: 768px) {
   .pagina-filmes {
-    padding: 90px 0 1rem 0;
+    padding: 0;
   }
   
   .destaque {
     height: 50vh;
     min-height: 400px;
+    margin-bottom: 0;
   }
   
   .destaque-titulo {
@@ -359,9 +385,20 @@
     font-size: 1rem;
   }
   
+  .destaque-botoes {
+    flex-direction: row;
+    gap: 0.8rem;
+    justify-content: flex-start;
+  }
+  
   .btn-ver-detalhes {
-    padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .btn-add-lista {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
   }
   
   .destaque-controles {
@@ -421,6 +458,16 @@
 }
 
 @media (max-width: 480px) {
+  .destaque-botoes {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  
+  .btn-ver-detalhes, .btn-add-lista {
+    width: auto;
+  }
+  
   .grade-filmes {
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
     gap: 1rem;
