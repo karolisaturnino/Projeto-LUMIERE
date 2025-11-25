@@ -19,7 +19,7 @@ export class AuthService {
     this.user$ = authState(this.auth);
   }
 
-  // ✔️ AGORA GETUSUARIOATUAL FUNCIONA DE VERDADE
+
   
   
 
@@ -34,8 +34,6 @@ export class AuthService {
   logout() {
     return from(signOut(this.auth));
   }
-
-  // (Opcional, mas deixei caso use depois)
  getCurrentUser(): Promise<User | null> {
     return this.auth.currentUser 
       ? Promise.resolve(this.auth.currentUser) 
