@@ -82,7 +82,7 @@ export class TmdbService {
     return this.http.get<Serie>(`${this.urlBase}/tv/${id}`, { params: parametros });
   }
 
-  // Método opcional para incluir traduções alternativas
+ 
   obterDetalhesFilmeCompleto(id: number): Observable<Filme> {
     const parametros = new HttpParams()
       .set('api_key', this.chaveApi)
